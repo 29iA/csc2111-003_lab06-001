@@ -44,7 +44,7 @@ Cell* Maze::processBackTrack(StackLinked<Cell>* stack)
 	//DO THIS
 	//you may need to back through several cells
 
-	Cell* top_cell = stack->peek();  
+	Cell* top_cell = stack->peek();
 	//top_cell is NULL if the stack is empty
 	//top_cell's direction is DEAD_END if you need to keep backtracking
 
@@ -52,14 +52,14 @@ Cell* Maze::processBackTrack(StackLinked<Cell>* stack)
 	{
 		int row, col;
 		//remove the cell and set the maze location to BACKTRACK (the maze is a Matrix)
-		Cell* dead_cell = stack->pop();
+		Cell* curr_cell = stack->pop(); //remove first, grabs next element from stack, get curr_cell to point there
 		
 		//get new direction
-		row = dead_end->getRow();
-		col = dead_end->getCol();
+		row = curr_cell->getRow();
+		col = curr_cell->getCol();
 		
 		//using setElement(row, col, direction)
-		maze->setElement(row, col, BACKTRACK)'
+		maze->setElement(row, col, BACKTRACK);
 
 		//look at the next cell
 		top_cell = stack->peek();
@@ -106,8 +106,6 @@ void Maze::processSolution(StackLinked<Cell>* stack)
 	while(!stack->isEmpty())
 	{
 		//get the next cell from the stack (create, assign, run)
-		//stack->peek();
-		//remove first, grabs next element from stack, get curr_cell to point there
 		Cell* curr_cell = stack->pop();	
 		int row, col;
 		
