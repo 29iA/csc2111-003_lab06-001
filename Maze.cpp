@@ -11,179 +11,179 @@ using namespace std;
 
 Maze::Maze(Matrix* mz)
 {
-   maze = mz;
-   height = maze->getNumRows();
-   width = maze->getNumCols();
+	maze = mz;
+	height = maze->getNumRows();
+	width = maze->getNumCols();
 
-   WALL = 0;
-   SPACE = 1;
-   TRIED = 2;
-   BACKTRACK = 3;
-   PATH = 4;
+	WALL = 0;
+	SPACE = 1;
+	TRIED = 2;
+	BACKTRACK = 3;
+	PATH = 4;
 }
 
 Maze::~Maze()
 {
-   delete maze;
+	delete maze;
 }
 
 void Maze::addListener(Update* g)
 {
-   gui = g;
+	gui = g;
 }
 
 bool Maze::solve()
 {
-   bool done = traverse();
-   return done;
+	bool done = traverse();
+	return done;
 }
 
 //backing through the maze, setting the color to BACKTRACK
 Cell* Maze::processBackTrack(StackLinked<Cell>* stack)
 {
-   //DO THIS
-   //you may need to back through several cells
+	//DO THIS
+	//you may need to back through several cells
 
-   Cell* top_cell = stack->peek();  
-   //top_cell is NULL if the stack is empty
-   //top_cell's direction is DEAD_END if you need to keep backtracking
+	Cell* top_cell = stack->peek();  
+	//top_cell is NULL if the stack is empty
+	//top_cell's direction is DEAD_END if you need to keep backtracking
 
-   while (                                        )  //need to back track
-   {
-      
-
-
-      //remove the cell and set the maze location to BACKTRACK (the maze is a Matrix)
+	while (top_cell == DEAD_END)  //need to back track
+	{
+	  
 
 
-
-      //look at the next cell
+		//remove the cell and set the maze location to BACKTRACK (the maze is a Matrix)
 
 
 
+		//look at the next cell
 
 
-      Sleep(SLEEP_TIME);      //slow down the maze traversal
-      gui->update();  //update whenever the color of a cell has been changed
-   }
 
-   return top_cell;
+
+
+		Sleep(SLEEP_TIME);      //slow down the maze traversal
+		gui->update();  //update whenever the color of a cell has been changed
+	}
+
+	return top_cell;
 }
 
 bool Maze::isSolved(Cell* curr_cell, StackLinked<Cell>* stack)
 {
-   //DO THIS
-   //get row and col from curr_cell
+	//DO THIS
+	//get row and col from curr_cell
 
 
 
-   //have you solved the maze? (check that we are at the bottom right maze location and that it is a SPACE
-   if (                                                          )  
-   {
+	//have you solved the maze? (check that we are at the bottom right maze location and that it is a SPACE
+	if (                                                          )  
+	{
 
 
-      //set the maze location to TRIED
+		//set the maze location to TRIED
 
 
-      //push curr_cell
+		//push curr_cell
 
 
-      gui->update();
-      //return the appropriate boolean
+		gui->update();
+		//return the appropriate boolean
 
-   }
+	}
 
 
-   //return the appropriate boolean
+	//return the appropriate boolean
    
 }
 
 //backing through the maze, setting the solution color to PATH
 void Maze::processSolution(StackLinked<Cell>* stack)
 {
-   //DO THIS
-   //the stack has the solution path stored
-   while(                    )
-   {
-      //get the next cell from the stack
+	//DO THIS
+	//the stack has the solution path stored
+	while(                    )
+	{
+		//get the next cell from the stack
 
 
-      
-      //update the maze location to PATH
+	  
+		//update the maze location to PATH
 
 
 
 
-      gui->update();
-   }
+		gui->update();
+	}
 }
 
 bool Maze::traverse()
 {
-   //DO THIS
-   //complete several sections in this method
+	//DO THIS
+	//complete several sections in this method
 
-   bool done = false; //assume we are not done unless proven otherwise
-   StackLinked<Cell> stack;
+	bool done = false; //assume we are not done unless proven otherwise
+	StackLinked<Cell> stack;
 
-   maze->setElement(1, 1, TRIED);
-   gui->update();
+	maze->setElement(1, 1, TRIED);
+	gui->update();
 
-   Cell* start_cell = new Cell(1, 1);
-   stack.push(start_cell);  //start from the top left corner
+	Cell* start_cell = new Cell(1, 1);
+	stack.push(start_cell);  //start from the top left corner
 
-   while(!stack.isEmpty())
-   {
-      Cell* top_cell = processBackTrack(&stack);
-      if (top_cell == NULL) break;  //no solution (back tracked all the way to the beginning)
+	while(!stack.isEmpty())
+	{
+		Cell* top_cell = processBackTrack(&stack);
+		if (top_cell == NULL) break;  //no solution (back tracked all the way to the beginning)
 
-      //call a method in the Cell class to give you a new Cell in a new direction relative to top_cell (initially, DOWN)
-      //DO THIS
-      Cell* curr_cell = 
+		//call a method in the Cell class to give you a new Cell in a new direction relative to top_cell (initially, DOWN)
+		//DO THIS
+		Cell* curr_cell = 
 
-      //does this new Cell solve the maze?
-      done = isSolved(curr_cell, &stack);
-      if (done) break;
+		//does this new Cell solve the maze?
+		done = isSolved(curr_cell, &stack);
+		if (done) break;
 
-      //DO THIS
-      //get the row and col from curr_cell
-      int row = 
-      int col = 
+		//DO THIS
+		//get the row and col from curr_cell
+		int row = 
+		int col = 
 
-      //check that the current maze location corresponds to SPACE, otherwise delete it
-      if (                                           )
-      {
-         //update the maze location to TRIED
-         //put the cell on the stack (move forward through the maze)
-
-
+		//check that the current maze location corresponds to SPACE, otherwise delete it
+		if (                                           )
+		{
+			//update the maze location to TRIED
+			//put the cell on the stack (move forward through the maze)
 
 
 
 
 
-         Sleep(SLEEP_TIME);  //slow down the maze traversal
-         gui->update();
-      }
-      else //look for a different route 
-      {
-         //DO THIS
-         //delete the cell
 
-      }
-   }
 
-   //did we make it to the bottom right?
-   if (done)
-   {
-      processSolution(&stack);
-   }
-   else
-   {
-      cout << "No solution." << endl;
-   }
+			Sleep(SLEEP_TIME);  //slow down the maze traversal
+			gui->update();
+		}
+		else //look for a different route 
+		{
+			//DO THIS
+			//delete the cell
 
-   return done;
+		}
+	}
+
+	//did we make it to the bottom right?
+	if (done)
+	{
+		processSolution(&stack);
+	}
+	else
+	{
+		cout << "No solution." << endl;
+	}
+
+	return done;
 }
 
 void Maze::mouseClicked(int x, int y)
@@ -213,32 +213,32 @@ void Maze::draw(wxDC& dc, int width, int height)
 
    for (int i = 1; i <= rows; i++)
    {
-      for (int j = 1; j <= cols; j++)
-      {
-         int val = (int) maze->getElement(i, j);
-         int x_pixel = (j - 1) * cell_width + cell_width/2;
-         int y_pixel = (i - 1) * cell_height + cell_height/2;
+	  for (int j = 1; j <= cols; j++)
+	  {
+		 int val = (int) maze->getElement(i, j);
+		 int x_pixel = (j - 1) * cell_width + cell_width/2;
+		 int y_pixel = (i - 1) * cell_height + cell_height/2;
 
-         if (val == WALL)
-         {
-            blackRect.draw(dc, x_pixel, y_pixel);
-         }
-         else if (val == SPACE)
-         {
-            whiteRect.draw(dc, x_pixel, y_pixel);
-         }
-         else if (val == TRIED)
-         {
-            blueRect.draw(dc, x_pixel, y_pixel);
-         }
-         else if (val == BACKTRACK)
-         {
-            redRect.draw(dc, x_pixel, y_pixel);
-         }
-         else if (val == PATH)
-         {
-            greenRect.draw(dc, x_pixel, y_pixel);
-         }
-      }
+		 if (val == WALL)
+		 {
+			blackRect.draw(dc, x_pixel, y_pixel);
+		 }
+		 else if (val == SPACE)
+		 {
+			whiteRect.draw(dc, x_pixel, y_pixel);
+		 }
+		 else if (val == TRIED)
+		 {
+			blueRect.draw(dc, x_pixel, y_pixel);
+		 }
+		 else if (val == BACKTRACK)
+		 {
+			redRect.draw(dc, x_pixel, y_pixel);
+		 }
+		 else if (val == PATH)
+		 {
+			greenRect.draw(dc, x_pixel, y_pixel);
+		 }
+	  }
    }
 }
