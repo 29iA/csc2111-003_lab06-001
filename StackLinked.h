@@ -71,7 +71,7 @@ T* StackLinked<T>::peek()
 	//DO THIS
 	if (!isEmpty()) 
 	{  
-		item = top->getNext();
+		item = top->getItem();
 	}
 	return item;
 }
@@ -80,11 +80,13 @@ template < class T >
 void StackLinked<T>::push(T* item)
 {
 	//DO THIS
-	NextNode<T>* node = new NextNode<T>(item);
-	node->setNext(item);
-	top = node;
+	NextNode<T>* node = new NextNode<T>(item); //create a new pointer with item in it
+	
+	node->setNext(top); //get node to point to the top
+	top = node; // make top pointing to the node
+	
+	delete node;	
 	sze++;
-	delete node;
 }
 
 template < class T >
@@ -94,15 +96,15 @@ T* StackLinked<T>::pop()
 
 	//DO THIS
 	T* item = NULL;
-	NextNode<T>* node = top;
+	NextNode<T>* node = top; //create pointer pointing to top
 	
-	node->getNext();
-	top = node;
+	item = node->getItem(); //get the current item from node pointing at top
+	top = node->getNext(); //move the node pointer to the next item, set it to top
 	
 	delete node;
 	sze--;
 	
-	return top;
+	return item; //return the item that's "popped" out
 }
 
 #endif
