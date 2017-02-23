@@ -93,10 +93,16 @@ T* StackLinked<T>::pop()
 	if (sze == 0) return NULL;
 
 	//DO THIS
+	T* item = NULL;
+	NextNode<T>* node = top;
 	
-
-
-
+	node->getNext();
+	top = node;
+	
+	delete node;
+	sze--;
+	
+	return top;
 }
 
 #endif
