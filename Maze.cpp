@@ -48,7 +48,7 @@ Cell* Maze::processBackTrack(StackLinked<Cell>* stack)
 	//top_cell is NULL if the stack is empty
 	//top_cell's direction is DEAD_END if you need to keep backtracking
 
-	while (top_cell == DEAD_END)  //need to back track
+	while (top_cell->getDir() == DEAD_END)  //need to back track
 	{
 		int row, col;
 		//remove the cell and set the maze location to BACKTRACK (the maze is a Matrix)
@@ -81,7 +81,9 @@ bool Maze::isSolved(Cell* curr_cell, StackLinked<Cell>* stack)
 	col = curr_cell->getCol();
 
 	//have you solved the maze? (check that we are at the bottom right maze location and that it is a SPACE
-	if (maze->getElement(row, col) == SPACE)  
+	//without row & col checking, program finishes on iteration 2
+	//row == height & col == width since these would be the max size probably
+	if (row == height && col == width && maze->getElement(row, col) == SPACE)  
 	{
 		//set the maze location to TRIED
 		maze->setElement(row, col, TRIED);
@@ -161,7 +163,7 @@ bool Maze::traverse()
 			//update the maze location to TRIED
 			//put the cell on the stack (move forward through the maze)
 			maze->setElement(row, col, TRIED);
-			stack->push(curr_cell);
+			stack.push(curr_cell); //how is this not a pointer anyway?
 
 			Sleep(SLEEP_TIME);  //slow down the maze traversal
 			gui->update();
