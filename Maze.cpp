@@ -161,7 +161,7 @@ bool Maze::traverse()
 			//update the maze location to TRIED
 			//put the cell on the stack (move forward through the maze)
 			maze->setElement(row, col, TRIED);
-			stack->push(curr_cell);
+			stack.push(curr_cell); //how is this not a pointer anyway?
 
 			Sleep(SLEEP_TIME);  //slow down the maze traversal
 			gui->update();
