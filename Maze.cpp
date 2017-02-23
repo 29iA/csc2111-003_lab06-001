@@ -81,7 +81,9 @@ bool Maze::isSolved(Cell* curr_cell, StackLinked<Cell>* stack)
 	col = curr_cell->getCol();
 
 	//have you solved the maze? (check that we are at the bottom right maze location and that it is a SPACE
-	if (maze->getElement(row, col) == SPACE)  
+	//without row & col checking, program finishes on iteration 2
+	//row == height & col == width since these would be the max size probably
+	if (row == height && col == width && maze->getElement(row, col) == SPACE)  
 	{
 		//set the maze location to TRIED
 		maze->setElement(row, col, TRIED);
